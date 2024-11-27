@@ -27,3 +27,30 @@ describe("GET /api", () => {
       });
   });
 });
+describe("GET /api/articles/:article_id", () => {
+  test("200: Responds with an article object when given the correct article_id", () => {
+    const correctArticleId = 1
+    return request(app).get(`/api/articles/${correctArticleId}`).expect(200).then(({body: {article}}) => {
+      expect(article).toHaveProperty('author')
+      expect(article).toHaveProperty('title')
+      expect(article).toHaveProperty('article_id', correctArticleId)
+      expect(article).toHaveProperty('body')
+      expect(article).toHaveProperty('topic')
+      expect(article).toHaveProperty('created_at')
+      expect(article).toHaveProperty('votes')
+      expect(article).toHaveProperty('article_img_url')
+    })
+  })
+  test("404: Responds with error when article_id is not found", () => {
+    const incorrectArticleId = 400
+    return request(app).get(`/api/articles/${incorrectArticleId}`).expect(404).then(({body}) => {
+      expect(body.msg).toBe("Article not found")
+    })
+  })
+  test("400: Responds with bad request error when article_id is incorrect", () => {
+    return request(app).get("/api/articles/abcdefg").expect(400).then(({body}) => {
+      expect(body.msg).toBe("Bad request")
+    })
+    
+  })
+})
