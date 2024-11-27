@@ -1,4 +1,4 @@
-// const db = require('../db/connection')
+const db = require('../db/connection')
 // const topicData = require('./data/topics')
 const {fetchAllTopics} = require('../models/topics.model')
 
