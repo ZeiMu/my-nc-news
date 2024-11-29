@@ -9,6 +9,7 @@ const app = express()
 const getApi = require("./controllers/api.controller")
 
 const {getArticleById} = require('./controllers/article_id.controller')
+const {getAllArticles} = require('./controllers/article.controller')
 
 // middleware
 app.use(express.json())
@@ -17,7 +18,7 @@ app.get('/api', getApi)
 
 app.get('/api/articles/:article_id', getArticleById)
 
-
+app.get('/api/articles', getAllArticles)
 
 
 

@@ -54,3 +54,30 @@ describe("GET /api/articles/:article_id", () => {
     
   })
 })
+describe("GET /api/articles", () => {
+  test('200: Responds with an array of articles sorted by date descending', () => {
+    return request(app).get('/api/articles').expect(200).then(({body:{articles}}) => {
+      expect(Array.isArray(articles)).toBe(true)
+      expect(articles[0]).toHaveProperty('article_id')
+      expect(articles[0]).toHaveProperty('title')
+      expect(articles[0]).toHaveProperty('author')
+      expect(articles[0]).toHaveProperty('topic')
+      expect(articles[0]).toHaveProperty('created_at')
+      expect(articles[0]).toHaveProperty('votes')
+      expect(articles[0]).toHaveProperty('article_img_url')
+      expect(articles[0]).toHaveProperty('comment_count')
+    })
+  })
+  test('200: Responds with articles depending on topic name', () => {
+    return request(app).get('/api/articles?topic=cats').expect(200).then(({body: {articles}}) => {
+      articles.forEach((article) => {
+        expect(article.topic).toBe('cats')
+      })
+    })
+  })
+  test('404: Responds with an error of not found for topic', () => {
+    return request(app).get('/api/articles?topic=abcdetopic').expect(404).then(({body}) => {
+      expect(body.msg).toBe('Topic not found')
+    })
+  })
+})
