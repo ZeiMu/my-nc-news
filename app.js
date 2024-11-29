@@ -14,6 +14,7 @@ const { getTopics } = require('./controllers/topics.controller')
 
 
 const {getArticleById} = require('./controllers/article_id.controller')
+const {getAllArticles} = require('./controllers/article.controller')
 
 
 // middleware
@@ -33,7 +34,7 @@ app.use ((err, req, res, next) => {
 
 app.get('/api/articles/:article_id', getArticleById)
 
-
+app.get('/api/articles', getAllArticles)
 
 
 
