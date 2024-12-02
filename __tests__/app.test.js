@@ -107,3 +107,32 @@ describe("GET /api/articles", () => {
   })
 })
 
+describe("GET /api/articles/:article_id/comments", () => {
+  test("200: Responds with an array of comments for a certain article_id", () => {
+    const correctArticleId = 1
+    return request(app).get(`/api/articles/${correctArticleId}/comments`).expect(200).then(({body: {comments}}) => {
+      expect(Array.isArray(comments)).toBe(true)
+      comments.forEach((comment) => {
+        expect(comment).toHaveProperty('comment_id')
+        expect(comment).toHaveProperty('votes')
+        expect(comment).toHaveProperty('created_at')
+        expect(comment).toHaveProperty('author')
+        expect(comment).toHaveProperty('body')
+        expect(comment).toHaveProperty('article_id', correctArticleId)
+      })
+    })
+  })
+  test("404: Responds with an error if the article_id does not exist", () => {
+    const incorrectArticleId = 1000
+    return request(app).get(`/api/articles/${incorrectArticleId}/comments`).expect(404).then(({body}) => {
+      expect(body.msg).toBe("Article not found")
+    })
+  })
+  test("400: Responds with a bad request error when article_id is not a valid number", () => {
+    return request(app).get("/api/articles/abcdefg/comments").expect(400).then(({body}) => {
+      expect(body.msg).toBe("Bad request")
+    })
+  })
+})
+
+
