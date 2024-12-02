@@ -6,4 +6,11 @@ function getApi(req, res) {
     res.status(200).send({endpoints: endpointsJson})   // does not need to interact with model because it is static
 }
 
-module.exports = getApi
+
+
+
+
+module.exports = {getApi}
+
+
+

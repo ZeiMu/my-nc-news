@@ -5,7 +5,9 @@
     "endpoints": [
       {"method": "GET", "path": "/api", "description": "api documentation"},
       {"method": "GET", "path": "/api/topics", "description": "serves an array of all topics"},
+
       {"method": "GET", "path": "/api/topics", "description": "serves an array of all articles"}
+
     ]
   }
   },
