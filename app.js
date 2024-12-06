@@ -17,6 +17,9 @@ const {getArticleById} = require('./controllers/article_id.controller')
 const {getAllArticles} = require('./controllers/article.controller')
 const {getCommentsByArticleId} = require('./controllers/comments.controller')
 
+const {postCommentForArticle} = require("./controllers/add_comment.controller")
+console.log(postCommentForArticle)
+
 
 // middleware
 app.use(express.json())
@@ -25,11 +28,13 @@ app.get('/api', getApi)
 
 app.get('/api/topics', getTopics)
 
-app.use ((err, req, res, next) => {
-   if(err.status && err.msg) {
-    res.status(err.status).send({msg: err.msg})
-   }
-})
+
+
+// app.use ((err, req, res, next) => {
+//    if(err.status && err.msg) {
+//     res.status(err.status).send({msg: err.msg})
+//    }
+// })
 
 
 
@@ -38,7 +43,7 @@ app.get('/api/articles/:article_id', getArticleById)
 app.get('/api/articles', getAllArticles)
 
 app.get('/api/articles/:article_id/comments', getCommentsByArticleId)
-
+app.post("/api/articles/:article_id/comments", postCommentForArticle)
 
 
 app.use((err, req, res, next) => {
