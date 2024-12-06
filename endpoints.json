@@ -30,9 +30,25 @@
           "author": "weegembump",
           "created_at": "2018-05-30T15:59:13.341Z",
           "votes": 0,
-          "comment_count": 6
+          "comment_count": 6,
+          "article_img_url": "https://images.pexels.com/photos/97050/pexels-photo-97050.jpeg?w=700&h=700"
         }
       ]
     }
+  },
+  "POST /api/articles/:article_id/comments": {
+    "description": "Adds a comment to a specified article.",
+    "params": ["article_id"],
+    "requestBody": {
+      "username": "string",
+      "body": "string"
+    },
+    "exampleResponse": {
+      "comment_id": 123,
+      "article_id": 1,
+      "username": "johndoe",
+      "body": "This is a comment"
+    }
   }
 }
+  
