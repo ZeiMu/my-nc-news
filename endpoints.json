@@ -4,7 +4,6 @@
     "exampleResponse": {
     "endpoints": [
       {"method": "GET", "path": "/api", "description": "api documentation"},
-      {"method": "GET", "path": "/api/topics", "description": "serves an array of all topics"},
 
       {"method": "GET", "path": "/api/topics", "description": "serves an array of all articles"}
 
@@ -35,6 +34,37 @@
         }
       ]
     }
+  },
+  "PATCH /api/articles/:article:id": {
+    "description": "Updates the votes of a specified article by article_id", 
+    "params": ["article_id"],
+    "requestBody": {
+      "inc_votes": "number"
+    },
+    "exampleResponse": {
+      "article_id": 1,
+      "title": "Seafood substitutions are increasing",
+      "topic": "cooking",
+      "author": "weegembump",
+      "created_at": "2018-05-30T15:59:13.341Z",
+      "votes": 5,
+      "comment_count": 6,
+      "article_img_url": "https://images.pexels.com/photos/97050/pexels-photo-97050.jpeg?w=700&h=700"
+    },
+    "errorResponses": [
+      {
+        "status": 400,
+        "message": "Bad request: inc_votes must be a number"
+      },
+      {
+        "status": 404,
+        "message": "Article not found"
+      },
+      {
+        "status": 400,
+        "message": "Bad request article_id must be a valid number"
+      }
+    ]
   },
   "POST /api/articles/:article_id/comments": {
     "description": "Adds a comment to a specified article.",
