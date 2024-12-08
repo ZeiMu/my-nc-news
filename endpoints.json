@@ -36,6 +36,21 @@
       ]
     }
   },
+  "DELETE /api/comments/:comment_id": {
+    "description": "Deletes a comment by comment_id",
+    "params": ["comment_id"],
+    "exampleResponse": {},
+    "errorResponses": [
+      {
+        "status": 404,
+        "message": "Comment not found"
+      },
+      {
+        "status": 400,
+        "message": "Bad request: comment_id must be a number"
+      }
+    ]
+  },
   "POST /api/articles/:article_id/comments": {
     "description": "Adds a comment to a specified article.",
     "params": ["article_id"],
