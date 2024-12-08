@@ -161,7 +161,7 @@ describe("GET /api/articles/:article_id/comments", () => {
 });
 describe("POST /api/articles/:article_id/comments", () => {
   test("201: Successfully add a comment to an article", () => {
-    const newComment ={
+    const newComment = {
       username: "butter_bridge",
       body: "The beautiful thing about treasure is that it exists. Got to find out what kind of sheets these are; not cotton, not rayon, silky."
     }
@@ -170,36 +170,35 @@ describe("POST /api/articles/:article_id/comments", () => {
       expect(comment).toHaveProperty("body", newComment.body)
     })
   })
-
-    // test("200: Successfully get all articles", () => {
-    //   return request(app)
-    //       .get("/api/articles")
-    //       .expect(200)
-    //       .then(({ body }) => {
-    //           expect(body).toBeInstanceOf(Array);
-    //           expect(body.length).toBeGreaterThan(0);
-    //       });
   });
-  
-  // test("404: Returns error for invalid route", () => {
-  //     return request(app)
-  //         .get("/api/invalid_route")
-  //         .expect(404)
-  //         .then(({ body }) => {
-  //             expect(body.msg).toBe("Article not found");
-  //         });
-  // });
+  describe("PATCH /api/articles/:article_id", () => {
+    test("Succesfully updates the votes for a valid article", () => {
+      const correctArticleId = 1
+      const incVotes = 10
 
-  // })
-  // test("404: Returns an error if the article_id does not exist", () => {
-  //   const newComment = {
-  //     username: "butter_bridge",
-  //     body: "The beautiful thing about treasure is that it exists. Got to find out what kind of sheets these are; not cotton, not rayon, silky."
-  //   }
-  //   return request(app).post("/api/articles/1000/comments").send(newComment).expect(404).then(({body}) => {
-  //     expect(body.msg).toBe("Article not found")
-  //   })
-  // })
+      return request(app).patch(`/api/articles/${correctArticleId}`).send({inc_votes: incVotes}).expect(200).then(({body: {article}}) => {
+        expect(article).toHaveProperty("article_id", correctArticleId)
+        expect(article).toHaveProperty("votes", 110)
+      })
+    })
+    test("400: Responds with bad request error if inc_votes is not a number", () => {
+      const correctArticleId = 1 
+
+      return request(app).patch(`/api/articles/${correctArticleId}`).send({inc_votes: "not a number"}).expect(400).then(({body}) => {
+        expect(body.msg).toBe("Bad request: inc_votes not a number")
+      })
+    })
+    test("404: Responds with an error if article does not exist", () => {
+      const incorrectArticleId = 1000
+      const incVotes = 9
+
+      return request(app).patch(`/api/articles/${incorrectArticleId}`).send({inc_votes: incVotes}).expect(404).then(({body}) => {
+        expect(body.msg).toBe("Article not found")
+      })
+    })
+  })
+  
+ 
 
 
 

@@ -12,7 +12,7 @@ const postCommentForArticle = (req, res, next) => {
         return next({status: 400, msg: "Bad request: Missing or incorrect username/body"})
     }
     fetchArticleById(article_id).then((article) => {
-        console.log("Fetched article:", article);
+        // console.log("Fetched article:", article);
         if (!article) {
             return next({status: 404, msg: "Article not found"})
         }
