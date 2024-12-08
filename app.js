@@ -21,6 +21,7 @@ const {postCommentForArticle} = require("./controllers/add_comment.controller")
 // console.log(postCommentForArticle)
 
 const {patchArticleById} = require("./controllers/update_article_by_id.controller")
+const {deleteComment, removeCommentById} = require("./controllers/delete_comment_by_id.controller")
 
 
 // middleware
@@ -47,6 +48,7 @@ app.get('/api/articles', getAllArticles)
 app.get('/api/articles/:article_id/comments', getCommentsByArticleId)
 app.post("/api/articles/:article_id/comments", postCommentForArticle)
 app.patch("/api/articles/:article_id", patchArticleById)
+app.delete("/api/comments/:comment_id", removeCommentById)
 
 app.use((err, req, res, next) => {
     if (err.status && err.msg) {

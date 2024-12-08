@@ -197,6 +197,19 @@ describe("POST /api/articles/:article_id/comments", () => {
       })
     })
   })
+  describe('DELETE /api/comments/:comment_id', () => {
+    test('204: Responds with no content when comment is deleted', () => {
+      const comment_id = 1
+      return request(app).delete(`/api/comments/${comment_id}`).expect(204)
+    })
+    test("404: Responds with comment not found for incorrect comment_id", () => {
+      const incorrectCommentId = 1000
+      
+      return request(app).delete(`/api/comments/${incorrectCommentId}`).expect(404).then(({body}) => {
+        expect(body.msg).toBe("Comment not found")
+      })
+    })
+  })
   
  
 

@@ -35,7 +35,21 @@
       ]
     }
   },
-  "PATCH /api/articles/:article:id": {
+
+  "DELETE /api/comments/:comment_id": {
+    "description": "Deletes a comment by comment_id",
+    "params": ["comment_id"],
+    "exampleResponse": {},
+    "errorResponses": [
+      {
+        "status": 404,
+        "message": "Comment not found"
+      },
+      {
+        "status": 400,
+        "message": "Bad request: comment_id must be a number"
+      },
+  "PATCH /api/articles/:article_id": {
     "description": "Updates the votes of a specified article by article_id", 
     "params": ["article_id"],
     "requestBody": {
@@ -63,6 +77,7 @@
       {
         "status": 400,
         "message": "Bad request article_id must be a valid number"
+
       }
     ]
   },
