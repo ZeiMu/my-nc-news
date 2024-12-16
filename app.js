@@ -1,5 +1,6 @@
 // importing dependencies
 const express = require('express')
+const cors = require('cors');
 
 
 // const db = require('./db//connection')
@@ -25,6 +26,7 @@ const {deleteComment, removeCommentById} = require("./controllers/delete_comment
 
 
 // middleware
+app.use(cors());
 app.use(express.json())
 
 app.get('/api', getApi)

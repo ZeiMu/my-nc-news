@@ -48,7 +48,7 @@
       {
         "status": 400,
         "message": "Bad request: comment_id must be a number"
-      },
+      }]},
   "PATCH /api/articles/:article_id": {
     "description": "Updates the votes of a specified article by article_id", 
     "params": ["article_id"],
